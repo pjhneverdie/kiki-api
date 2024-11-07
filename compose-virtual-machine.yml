@@ -1,0 +1,20 @@
+# 깃헙 액션 가상 머신에서 빌드/테스트 시, 내가 로컬에서 개발한 환경을 그대로 재현하기 위한 compose 파일
+# 실제 배포 환경이랑 db 비밀번호가 달라서 깃헙에 올라가도 OK
+
+services:
+  my-mysql:
+    image: mysql
+    container_name: mysql-for-kiki-virtual-machine
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: kiki_testcase
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+  my-redis:
+    image: redis
+    container_name: redis-for-kiki-virtual-machine
+    ports:
+      - 6379:6379

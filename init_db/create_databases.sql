@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS kiki_localhost;
+CREATE DATABASE IF NOT EXISTS kiki_testcase;
