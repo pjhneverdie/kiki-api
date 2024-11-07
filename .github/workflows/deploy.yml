@@ -35,6 +35,15 @@ jobs:
           echo "${{ secrets.APPLICATION_YML }}" > src/main/resources/application.yml
           echo "${{ secrets.APPLICATION_PROD_YML }}" > src/main/resources/application-prod.yml
 
+      - name: mysql_data 폴더 확인
+        run: |
+          if [ ! -d "./mysql_data" ]; then
+            echo "mysql_data 폴더가 존재하지 않습니다."
+            exit 1
+          else
+            echo "mysql_data 폴더가 확인되었습니다."
+          fi
+
       - name: 테스트 및 빌드하기
         run: ./gradlew clean build
 
