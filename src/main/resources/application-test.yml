@@ -1,5 +1,3 @@
-# 실제 배포 환경이랑 db 비밀번호, jwt 키가 달라서 깃헙에 올라가도 OK
-
 spring:
   datasource:
     # 테스트 db는 따로 사용
@@ -11,6 +9,7 @@ spring:
     redis:
       host: localhost
       port: 6379
+      password: 123456
   jpa:
     hibernate:
       ddl-auto: none
@@ -27,11 +26,8 @@ logging:
 
 security:
   use-debug-mode: true
-  jwt-secret: localjwt
-
-# 테스트 시 CORS 필요 X
-#cors:
-#  # 네이티브 앱이라 따로 도메인이 없고 쿠키도 사용 안 해서 *
-#  allowed-origins: *
-#  allowed-methods: *
-#  allowed-headers: *
+  jwt:
+    secret-key: local-secret-keyyyyyyyyyyyyyyyyyy
+  aes:
+    secret-key: local-secret-key
+    iv-secret-key: local-secret-key

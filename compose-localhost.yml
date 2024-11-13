@@ -1,5 +1,4 @@
 # 로컬 개발용 도커 환경
-# 실제 배포 환경이랑 db 비밀번호가 달라서 깃헙에 올라가도 OK
 
 services:
   my-mysql:
@@ -18,3 +17,7 @@ services:
     container_name: redis-for-kiki-localhost
     ports:
       - 6379:6379
+    volumes:
+      - ./redis_data:/data
+      - ./redis-localhost.conf:/usr/local/etc/redis/redis.conf
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
