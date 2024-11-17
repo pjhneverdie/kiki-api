@@ -15,11 +15,11 @@ jobs:
       - name: 레포지토리에 application.yml 업로드
         run: |
           # 기존 application-local.yml 파일은 이제 필요 없으니 삭제
-          rm src/main/resources/application-local.yml
+          rm /src/main/resources/application-local.yml
           
           # 원래 로컬에서 개발할 때는 local 프로필을 사용했었는데, 배포 환경이니 prod 프로필로 교체
-          echo "${{ secrets.APPLICATION_YML }}" > src/main/resources/application.yml
-          echo "${{ secrets.APPLICATION_PROD_YML }}" > src/main/resources/application-prod.yml
+          echo "${{ secrets.APPLICATION_YML }}" > /src/main/resources/application.yml
+          echo "${{ secrets.APPLICATION_PROD_YML }}" > /src/main/resources/application-prod.yml
 
       - name: JDK 17 설치
         uses: actions/setup-java@v4
@@ -30,10 +30,10 @@ jobs:
       - name: 개발 환경이랑 똑같이 도커 세팅 (MySQL & Redis)
         run: |
           # 미리 설정한 가상 머신 전용 컴포즈 파일 up
-          docker compose -f compose-virtual-machine.yml up -d
+          docker compose -f /compose-virtual-machine.yml up -d
           
           # 빌드 전 헬스 체크
-          until docker exec mysql-for-kiki-virtual-machine mysqladmin -u root -p"123456" ping -h "127.0.0.1" --silent && \
+          until docker exec mysql-for-kiki-virtual-machine mysqladmin -u root -p"123456" ping -h "127.0.0.1" && \
                 docker exec redis-for-kiki-virtual-machine redis-cli -a "123456" ping | grep -q "PONG"; do
             echo "Waiting for MySQL and Redis to be ready..."
             sleep 2
