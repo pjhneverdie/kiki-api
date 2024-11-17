@@ -52,14 +52,17 @@ jobs:
       - name: AWS 유저 인증
         uses: aws-actions/configure-aws-credentials@v1
         with:
+          aws-region: ap-northeast-2
           aws-access-key-id: ${{ secrets.AWS_USER_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_USER_SECRET_KEY }}
-          aws-region: ap-northeast-2
 
       - name: ECR에 로그인
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: 서버 이미지 빌드, ECR에 푸시
-        run: | 
-          docker build -t kiki-api-server:latest .
-          docker push kiki-api-server:latest
+        run: |
+          REPO_URL=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com
+          
+          docker build -t $REPO_URL/kiki-api-server:latest .
+          
+          docker push $REPO_URL/kiki-api-server:latest
