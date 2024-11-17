@@ -23,7 +23,7 @@ jobs:
           docker compose -f compose-virtual-machine.yml up -d
           
           until docker exec mysql-for-kiki-virtual-machine mysqladmin -u root -p"123456" ping -h "127.0.0.1" --silent && \
-                docker exec redis-for-kiki-virtual-machine redis-cli ping | grep -q "PONG"; do
+                docker exec redis-for-kiki-virtual-machine redis-cli -a "123456" ping | grep -q "PONG"; do
             echo "Waiting for MySQL and Redis to be ready..."
             sleep 2
           done
