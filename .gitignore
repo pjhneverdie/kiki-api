@@ -39,4 +39,5 @@ out/
 /src/main/resources/application-prod.yml
 /mysql_data
 /redis_data
+compose-prod.yml
 redis-prod.conf
