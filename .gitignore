@@ -39,3 +39,4 @@ out/
 /src/main/resources/application-prod.yml
 /mysql_data
 /redis_data
+redis-prod.conf

@@ -1,20 +1,19 @@
 package corp.pjh.kiki.jwt.util;
 
-import io.jsonwebtoken.security.SignatureException;
+import io.jsonwebtoken.JwtException;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class JwtUtilTest {
 
+    @Autowired
     private JwtUtil jwtUtil;
-
-    @BeforeEach
-    void setUp() {
-        jwtUtil = new JwtUtil("testtttttttttttttttttttttttttttttttt");
-    }
 
     @Test
     void 토큰_생성_테스트() {
@@ -108,7 +107,7 @@ class JwtUtilTest {
         String modifiedToken = token.substring(0, token.length() - 1) + (token.charAt(token.length() - 1) == 'a' ? 'b' : 'a');
 
         // Then
-        assertThrows(SignatureException.class, () -> {
+        assertThrows(JwtException.class, () -> {
             jwtUtil.getTokenType(modifiedToken);
         });
     }

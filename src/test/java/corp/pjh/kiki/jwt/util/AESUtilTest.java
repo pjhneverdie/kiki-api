@@ -2,11 +2,16 @@ package corp.pjh.kiki.jwt.util;
 
 import org.junit.jupiter.api.Test;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class AESUtilTest {
 
-    private final AESUtil aesUtil = new AESUtil("local-secret-key", "local-secret-key");
+    @Autowired
+    private  AESUtil aesUtil;
 
     @Test
     public void 암호화_테스트() throws Exception {

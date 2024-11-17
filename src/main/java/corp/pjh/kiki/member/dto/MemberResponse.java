@@ -1,6 +1,7 @@
 package corp.pjh.kiki.member.dto;
 
 import corp.pjh.kiki.member.domain.Role;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

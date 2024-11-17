@@ -1,16 +1,14 @@
 package corp.pjh.kiki.jwt.service;
 
 import corp.pjh.kiki.common.dto.CustomException;
-
 import corp.pjh.kiki.jwt.dto.Tokens;
 import corp.pjh.kiki.jwt.exception.JwtExceptionCode;
-
 import corp.pjh.kiki.jwt.util.AESUtil;
 import corp.pjh.kiki.jwt.util.JwtUtil;
-
 import corp.pjh.kiki.security.oauth2.dto.MemberPrincipal;
 
 import io.jsonwebtoken.JwtException;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.redis.core.RedisTemplate;
@@ -35,19 +33,19 @@ public class JwtService {
     /**
      * recreateTokens, 토큰 재발급
      */
-    public Tokens recreateTokens(String token) {
+    public Tokens recreateTokens(String refreshToken) {
         try {
-            if (!jwtUtil.isExpired(token) && jwtUtil.getTokenType(token).equals("refresh")) {
-                String subject = jwtUtil.getSubject(token);
+            if (!jwtUtil.isExpired(refreshToken) && jwtUtil.getTokenType(refreshToken).equals("refresh")) {
+                String subject = jwtUtil.getSubject(refreshToken);
 
-                if (redisTemplate.opsForValue().get(subject) != null && redisTemplate.opsForValue().get(subject).equals(token)) {
-                    String name = jwtUtil.getName(token);
-                    String role = jwtUtil.getRole(token);
+                if (redisTemplate.opsForValue().get(subject) != null && redisTemplate.opsForValue().get(subject).equals(refreshToken)) {
+                    String name = jwtUtil.getName(refreshToken);
+                    String role = jwtUtil.getRole(refreshToken);
 
-                    String accessToken = jwtUtil.createJwt("access", subject, name, role, threeHoursInMilliSeconds);
-                    String refreshToken = jwtUtil.createJwt("refresh", subject, name, role, thirtyDaysInMilliSeconds);
+                    String newAccessToken = jwtUtil.createJwt("access", subject, name, role, threeHoursInMilliSeconds);
+                    String newRefreshToken = jwtUtil.createJwt("refresh", subject, name, role, thirtyDaysInMilliSeconds);
 
-                    return new Tokens(accessToken, refreshToken);
+                    return new Tokens(newAccessToken, newRefreshToken);
                 }
             }
 
@@ -77,10 +75,10 @@ public class JwtService {
         return new Tokens(accessToken, refreshToken);
     }
 
-    public void saveRefreshToken(String token) {
-        String subject = jwtUtil.getSubject(token);
+    public void saveRefreshToken(String refreshToken) {
+        String subject = jwtUtil.getSubject(refreshToken);
 
-        redisTemplate.opsForValue().set(subject, token, Duration.ofMillis(thirtyDaysInMilliSeconds));
+        redisTemplate.opsForValue().set(subject, refreshToken, Duration.ofMillis(thirtyDaysInMilliSeconds));
     }
 
     public String encrypt(Tokens tokens) throws Exception {

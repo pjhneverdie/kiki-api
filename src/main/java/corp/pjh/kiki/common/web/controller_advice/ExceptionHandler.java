@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
@@ -18,8 +17,6 @@ public class ExceptionHandler {
 
     @RequiredArgsConstructor
     public enum GlobalExceptionCode implements ExceptionCode {
-
-        UNAUTHORIZED("UNAUTHORIZED", HttpStatusCode.valueOf(401)),
 
         INTERNAL_SERVER_ERROR("INTERNAL_SERVER_ERROR", HttpStatusCode.valueOf(500)),
 

@@ -2,10 +2,7 @@ package corp.pjh.kiki.jwt.controller;
 
 import corp.pjh.kiki.common.dto.CustomException;
 import corp.pjh.kiki.common.dto.ApiResponse;
-
 import corp.pjh.kiki.jwt.dto.Tokens;
-import corp.pjh.kiki.jwt.dto.TokensResponse;
-
 import corp.pjh.kiki.jwt.service.JwtService;
 import corp.pjh.kiki.jwt.exception.JwtExceptionCode;
 
@@ -24,7 +21,7 @@ public class ReissueController {
     private final JwtService jwtService;
 
     @PostMapping("/reissue")
-    public ResponseEntity<ApiResponse<TokensResponse>> reissue(HttpServletRequest request) {
+    public ResponseEntity<ApiResponse<String>> reissue(HttpServletRequest request) {
         String authorization = request.getHeader("Authorization");
 
         if (authorization != null && authorization.startsWith("Bearer ")) {
@@ -32,7 +29,11 @@ public class ReissueController {
 
             jwtService.saveRefreshToken(tokens.getRefreshToken());
 
-            return ResponseEntity.ok(new ApiResponse<>(new TokensResponse(tokens.getAccessToken(), tokens.getRefreshToken())));
+            try {
+                return ResponseEntity.ok(new ApiResponse<>(jwtService.encrypt(tokens)));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
         /**
