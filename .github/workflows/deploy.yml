@@ -74,13 +74,18 @@ jobs:
       - name: SSH 접속을 위한 가상 머신 IP 인바운드 규칙에 추가
         run: aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_EC2_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
+      - name: 레포지토리에 compose-prod.yml, redis-prod.conf 업로드
+        run: |          
+          echo "${{ secrets.COMPOSE_PROD_YML }}" > ./compose-prod.yml
+          echo "${{ secrets.REDIS_PROD_CONF }}" > ./redis-prod.conf
+
       - name: compose.yml 전송
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
-          source: "${{ secrets.COMPOSE_PROD_YML }}"
+          source: ./compose-prod.yml
           target: /home/ubuntu/compose/compose-prod.yml
 
       - name: redis.conf 전송
@@ -89,6 +94,5 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
-          source: "${{ secrets.REDIS_PROD_CONF }}"
+          source: ./redis-prod.conf
           target: /home/ubuntu/redis/config/redis-prod.conf
-
