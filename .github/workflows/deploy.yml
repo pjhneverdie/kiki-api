@@ -86,7 +86,7 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           source: ./compose-prod.yml
-          target: /home/ubuntu/compose/compose-prod.yml
+          target: /home/ubuntu/compose
 
       - name: redis.conf 전송
         uses: appleboy/scp-action@v0.1.7
@@ -95,7 +95,7 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           source: ./redis-prod.conf
-          target: /home/ubuntu/redis/config/redis-prod.conf
+          target: /home/ubuntu/redis/config
 
       - name: EC2 접속
         uses: appleboy/ssh-action@v1.0.3
