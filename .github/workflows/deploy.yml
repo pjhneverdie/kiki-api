@@ -66,3 +66,20 @@ jobs:
           docker build -t $REPO_URL/kiki-api-server:latest .
           
           docker push $REPO_URL/kiki-api-server:latest
+
+      - name: 가상 머신 IP 조회
+        id: ip
+        uses: haythem/public-ip@v1.2
+
+      - name: SSH 접속을 위한 가상 머신 IP 인바운드 규칙에 추가
+        run: aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_EC2_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+
+      - name: EC2에 compose 및 redis 설정 파일 업로드
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          source: |
+            <(echo "${{ secrets.COMPOSE_PROD_YML }}"):/home/ubuntu/compose/compose-prod.yml
+            <(echo "${{ secrets.REDIS_PROD_CONF }}"):/home/ubuntu/redis/config/redis-prod.conf
