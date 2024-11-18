@@ -108,10 +108,10 @@ jobs:
             REPO_URL=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com
             docker pull $REPO_URL/kiki-api-server:latest
             
-            docker compose -f /home/ubuntu/compose/compose-prod.yml down
-            # 모든 컨테이너가 종료될 때까지 대기
-            while [ "$(docker ps -q)" ]; do
-            sleep 2
-            done
-            
-            docker compose -f /home/ubuntu/compose/compose-prod.yml up -d
+#            docker compose -f /home/ubuntu/compose/compose-prod.yml down
+#            # 모든 컨테이너가 종료될 때까지 대기
+#            while [ "$(docker ps -q)" ]; do
+#            sleep 2
+#            done
+#
+#            docker compose -f /home/ubuntu/compose/compose-prod.yml up -d
