@@ -33,15 +33,6 @@ public class SecurityConfig {
     @Value("${security.use-debug-mode:false}")
     boolean webSecurityDebug;
 
-    @Value("${cors.allowed-origins}")
-    private String allowedOrigins;
-
-    @Value("${cors.allowed-methods}")
-    private String allowedMethods;
-
-    @Value("${cors.allowed-headers}")
-    private String allowedHeaders;
-
     private final OAuth2MemberService oAuth2MemberService;
     private final OAuth2SuccessHandler oAuth2SuccessHandler;
     private final OAuth2FailureHandler oAuth2FailureHandler;
@@ -64,9 +55,9 @@ public class SecurityConfig {
                 @Override
                 public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                     CorsConfiguration corsConfiguration = new CorsConfiguration();
-                    corsConfiguration.addAllowedOrigin(allowedOrigins);
-                    corsConfiguration.addAllowedMethod(allowedMethods);
-                    corsConfiguration.addAllowedHeader(allowedHeaders);
+                    corsConfiguration.addAllowedOrigin("*");
+                    corsConfiguration.addAllowedMethod("*");
+                    corsConfiguration.addAllowedHeader("*");
 
                     return corsConfiguration;
                 }

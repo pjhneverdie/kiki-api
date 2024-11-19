@@ -54,8 +54,3 @@ security:
   aes:
     secret-key: local-secret-key
     iv-secret-key: local-secret-key
-
-cors:
-  allowed-origins: "*"
-  allowed-methods: "*"
-  allowed-headers: "*"
