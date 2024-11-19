@@ -56,7 +56,6 @@ security:
     iv-secret-key: local-secret-key
 
 cors:
-  # 네이티브 앱이라 따로 도메인이 없고 쿠키도 사용 안 해서 *
   allowed-origins: "*"
   allowed-methods: "*"
   allowed-headers: "*"

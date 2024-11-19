@@ -118,3 +118,6 @@ jobs:
             done
 
             docker compose -f /home/ubuntu/compose/compose-prod.yml up -d
+
+      - name: 인바운드 규칙에서 가상머신 IP 삭제
+        run: aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_EC2_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
