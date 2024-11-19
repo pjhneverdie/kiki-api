@@ -15,7 +15,8 @@ jobs:
       - name: 레포지토리에 application.yml 업로드
         run: |
           # 기존 application-local.yml 파일은 이제 필요 없으니 삭제
-          rm ./src/main/resources/application-local.yml
+          rm ./src/main/resources/application-localhost.yml
+          rm ./src/main/resources/application-localhost-build.yml
           
           # 원래 로컬에서 개발할 때는 local 프로필을 사용했었는데, 배포 환경이니 prod 프로필로 교체
           echo "${{ secrets.APPLICATION_YML }}" > ./src/main/resources/application.yml
