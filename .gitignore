@@ -36,6 +36,7 @@ out/
 ### VS Code ###
 .vscode/
 
+.DS_Store
 /src/main/resources/application-prod.yml
 /mysql_data
 /redis_data

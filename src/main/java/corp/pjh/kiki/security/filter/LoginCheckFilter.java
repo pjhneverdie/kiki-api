@@ -28,7 +28,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-@Profile("!test")
+@Profile("!testcase")
 @Component
 @RequiredArgsConstructor
 public class LoginCheckFilter extends OncePerRequestFilter {
