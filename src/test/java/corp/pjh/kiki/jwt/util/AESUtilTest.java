@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AESUtilTest {
 
     @Autowired
-    private  AESUtil aesUtil;
+    private AESUtil aesUtil;
 
     @Test
     public void 암호화_테스트() throws Exception {

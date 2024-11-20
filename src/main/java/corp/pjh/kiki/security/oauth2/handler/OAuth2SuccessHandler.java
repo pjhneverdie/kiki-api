@@ -45,6 +45,10 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         try {
             response.sendRedirect("http://" + myDomain + ":8080/home?tokens=" + jwtService.encrypt(tokens));
         } catch (Exception e) {
+            System.out.println("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
+            System.out.println("실패: " + e.getClass());
+            System.out.println("실패: " + e.getMessage());
+            System.out.println("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
             response.sendRedirect("http://" + myDomain + ":8080/home");
         }
     }
