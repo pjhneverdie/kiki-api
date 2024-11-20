@@ -54,3 +54,5 @@ security:
   aes:
     secret-key: local-secret-key
     iv-secret-key: local-secret-key
+
+my-domain: localhost
