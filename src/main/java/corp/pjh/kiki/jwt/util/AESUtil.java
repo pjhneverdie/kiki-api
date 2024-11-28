@@ -12,7 +12,8 @@ import java.util.Base64;
 @Component
 public class AESUtil {
 
-    private final String cipherAlgorithm = "AES/CBC/PKCS5Padding";
+    @Value("${security.aes.cipher-algorithm}")
+    private String cipherAlgorithm;
 
     private final SecretKeySpec key;
 
@@ -29,14 +30,15 @@ public class AESUtil {
 
         byte[] encrypted = cipher.doFinal(input.getBytes());
 
-        return Base64.getEncoder().encodeToString(encrypted);
+        return Base64.getUrlEncoder().withoutPadding().encodeToString(encrypted);
     }
 
     public String decrypt(String encryptedInput) throws Exception {
         Cipher cipher = Cipher.getInstance(cipherAlgorithm);
         cipher.init(Cipher.DECRYPT_MODE, key, iv);
 
-        byte[] decrypted = cipher.doFinal(Base64.getDecoder().decode(encryptedInput));
+        byte[] decodedInput = Base64.getUrlDecoder().decode(encryptedInput);
+        byte[] decrypted = cipher.doFinal(decodedInput);
 
         return new String(decrypted);
     }

@@ -16,7 +16,7 @@ public class SecurityTestConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web
-                .ignoring().requestMatchers("/home", "/reissue", "/applinks/**");
+                .ignoring().requestMatchers("/reissue");
     }
 
     @Bean

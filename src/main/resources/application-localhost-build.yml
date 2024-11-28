@@ -34,7 +34,7 @@ spring:
             client-id: 0662d30d5260576c5b9a63b6508f7ae9
             client-secret: mFLFViBZS9mrY9MBY5RkSduypDkA4zwl
             client-authentication-method: client_secret_post
-            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
+            redirect-uri: https://eaa25870b2ec6f758b256c814a691411.serveo.net/login/oauth2/code/kakao
             authorization-grant-type: authorization_code
             client-name: kakao
             scope:
@@ -54,5 +54,10 @@ security:
   aes:
     secret-key: local-secret-key
     iv-secret-key: local-secret-key
+    cipher-algorithm: AES/CBC/PKCS5Padding
 
-my-domain: localhost
+base-url: https://eaa25870b2ec6f758b256c814a691411.serveo.net
+client:
+  android:
+    package-name: corp.pjh.kiki
+    sha-256: B4:DB:18:FC:5A:1A:47:7D:24:99:F4:8C:64:3A:35:13:B3:E4:25:26:51:40:63:AF:29:81:FE:3C:A6:F8:44:6E

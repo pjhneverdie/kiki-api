@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatusCode;
 @RequiredArgsConstructor
 public enum JwtExceptionCode implements ExceptionCode {
 
-    INVALID_TOKEN("INVALID_TOKEN", HttpStatusCode.valueOf(401));
+    INVALID_TOKEN("INVALID_TOKEN", HttpStatusCode.valueOf(401)),
+
+    TOKEN_ENCODE_FAILED("TOKEN_ENCODE_FAILED", HttpStatusCode.valueOf(500));
 
     @Override
     public String codeName() {

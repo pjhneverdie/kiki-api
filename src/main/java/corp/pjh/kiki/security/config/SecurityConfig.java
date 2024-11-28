@@ -44,7 +44,8 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web
                 .debug(webSecurityDebug)
-                .ignoring().requestMatchers("/home", "/reissue", "/applinks/**", "/favicon.ico");
+                .ignoring()
+                .requestMatchers("/app", "/.well-known/assetlinks.json", "/reissue", "/favicon.ico");
     }
 
     @Bean

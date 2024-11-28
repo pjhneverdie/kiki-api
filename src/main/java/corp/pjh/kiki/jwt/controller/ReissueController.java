@@ -32,7 +32,7 @@ public class ReissueController {
             try {
                 return ResponseEntity.ok(new ApiResponse<>(jwtService.encrypt(tokens)));
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                throw new CustomException(JwtExceptionCode.TOKEN_ENCODE_FAILED);
             }
         }
 
