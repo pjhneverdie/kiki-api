@@ -41,7 +41,7 @@ class ReissueControllerTest extends ControllerTestBase {
 
         // When
         ResultActions resultActions = mockMvc.perform(post("/reissue")
-                .header("Authorization", "Bearer qrstuvwxyz"));
+                .header("Authorization", "Bearer qrstuvwxdasdyz"));
 
         // Then
         ApiResponse<String> apiResponse = createApiResponse("encrypted");

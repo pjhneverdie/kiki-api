@@ -28,7 +28,6 @@ public class ReissueController {
             Tokens tokens = jwtService.recreateTokens(authorization.substring(7));
 
             jwtService.saveRefreshToken(tokens.getRefreshToken());
-
             try {
                 return ResponseEntity.ok(new ApiResponse<>(jwtService.encrypt(tokens)));
             } catch (Exception e) {
@@ -36,9 +35,6 @@ public class ReissueController {
             }
         }
 
-        /**
-         * 토큰이 없는 경우
-         */
         throw new CustomException(JwtExceptionCode.INVALID_TOKEN);
     }
 

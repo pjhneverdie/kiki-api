@@ -1,8 +1,2 @@
 /mysql_data
 /redis_data
-/init_db
-
-.gitmessage.txt
-.gitattributes
-.gitignore
-.github

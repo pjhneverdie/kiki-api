@@ -8,9 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @RestControllerAdvice
 public class ExceptionHandler {
@@ -18,11 +16,7 @@ public class ExceptionHandler {
     @RequiredArgsConstructor
     public enum GlobalExceptionCode implements ExceptionCode {
 
-        INTERNAL_SERVER_ERROR("INTERNAL_SERVER_ERROR", HttpStatusCode.valueOf(500)),
-
-        BAD_REQUEST("BAD_REQUEST", HttpStatusCode.valueOf(400)),
-
-        NOT_FOUND("NOT_FOUND", HttpStatusCode.valueOf(404));
+        INTERNAL_SERVER_ERROR("INTERNAL_SERVER_ERROR", HttpStatusCode.valueOf(500));
 
         @Override
         public String codeName() {
@@ -47,24 +41,6 @@ public class ExceptionHandler {
         apiResponse.setCodeName(GlobalExceptionCode.INTERNAL_SERVER_ERROR.codeName());
 
         return new ResponseEntity<>(apiResponse, GlobalExceptionCode.INTERNAL_SERVER_ERROR.httpStatusCode());
-    }
-
-    @org.springframework.web.bind.annotation.ExceptionHandler(NoResourceFoundException.class)
-    public ResponseEntity<ApiResponse<Void>> handleNotFoundException() {
-        ApiResponse<Void> apiResponse = createApiResponse();
-
-        apiResponse.setCodeName(GlobalExceptionCode.NOT_FOUND.codeName());
-
-        return new ResponseEntity<>(apiResponse, GlobalExceptionCode.NOT_FOUND.httpStatusCode());
-    }
-
-    @org.springframework.web.bind.annotation.ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public ResponseEntity<ApiResponse<Void>> handleBadRequestException() {
-        ApiResponse<Void> apiResponse = createApiResponse();
-
-        apiResponse.setCodeName(GlobalExceptionCode.BAD_REQUEST.codeName());
-
-        return new ResponseEntity<>(apiResponse, GlobalExceptionCode.BAD_REQUEST.httpStatusCode());
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(CustomException.class)

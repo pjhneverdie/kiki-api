@@ -33,6 +33,7 @@ logging:
 security:
   use-debug-mode: true
   jwt:
+    secure-algorithm: HmacSHA256
     secret-key: local-secret-keyyyyyyyyyyyyyyyyyy
   aes:
     secret-key: local-secret-key

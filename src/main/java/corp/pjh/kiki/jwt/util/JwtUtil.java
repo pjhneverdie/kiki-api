@@ -16,8 +16,8 @@ public class JwtUtil {
 
     private final SecretKey secretKey;
 
-    public JwtUtil(@Value("${security.jwt.secret-key}") String secretKey) {
-        this.secretKey = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+    public JwtUtil(@Value("${security.jwt.secret-key}") String secretKey, @Value("${security.jwt.secure-algorithm}") String secureAlgorithm) {
+        this.secretKey = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), secureAlgorithm);
     }
 
     public String getTokenType(String token) {

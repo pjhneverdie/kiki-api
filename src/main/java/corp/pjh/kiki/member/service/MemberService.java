@@ -22,4 +22,11 @@ public class MemberService {
         return new MemberResponse(foundMember.getName(), foundMember.getThumbUrl(), foundMember.getRole());
     }
 
+    @Transactional
+    public void deleteMember(String subject) {
+        Member foundMember = memberRepository.findBySubject(subject);
+
+        memberRepository.delete(foundMember);
+    }
+
 }

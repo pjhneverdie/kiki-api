@@ -45,7 +45,7 @@ public class SecurityConfig {
         return (web) -> web
                 .debug(webSecurityDebug)
                 .ignoring()
-                .requestMatchers("/app", "/.well-known/assetlinks.json", "/reissue", "/favicon.ico");
+                .requestMatchers("/app", "/.well-known/assetlinks.json", "/reissue", "/pay", "/expired", "/favicon.ico", "/actuator/health");
     }
 
     @Bean

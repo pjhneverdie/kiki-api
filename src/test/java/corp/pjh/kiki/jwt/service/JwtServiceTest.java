@@ -3,7 +3,6 @@ package corp.pjh.kiki.jwt.service;
 import corp.pjh.kiki.common.dto.CustomException;
 import corp.pjh.kiki.jwt.dto.Tokens;
 import corp.pjh.kiki.jwt.exception.JwtExceptionCode;
-import corp.pjh.kiki.jwt.util.AESUtil;
 import corp.pjh.kiki.jwt.util.JwtUtil;
 import corp.pjh.kiki.member.domain.Role;
 
@@ -23,7 +22,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class JwtServiceTest {
 
-    private final long threeHoursInMilliSeconds = 60 * 60 * 3L * 1000;
+    private final long threeHoursInMilliSeconds = 30 * 1000;
 
     private final long thirtyDaysInMilliSeconds = 60 * 60 * 24L * 30 * 1000;
 
@@ -32,9 +31,6 @@ class JwtServiceTest {
 
     @Mock
     private JwtUtil jwtUtil;
-
-    @Mock
-    private AESUtil aesUtil;
 
     @Mock
     private RedisTemplate<String, String> redisTemplate;
@@ -46,7 +42,7 @@ class JwtServiceTest {
     void 토큰_재발급_성공_테스트() {
         // Given
         String refreshToken = "refreshToken";
-        String subject = "kakao-3783863255";
+        String subject = "kakao-37838632555";
         String name = "test";
         String role = Role.FREE.name();
         String newAccessToken = "newAccessToken";
@@ -95,7 +91,7 @@ class JwtServiceTest {
         String refreshToken = "refreshToken";
 
         when(jwtUtil.isExpired(refreshToken)).thenReturn(false);
-        when(jwtUtil.getTokenType(refreshToken)).thenReturn("some");
+        when(jwtUtil.getTokenType(refreshToken)).thenReturn("");
 
         // When
         CustomException customException = assertThrows(CustomException.class, () -> jwtService.recreateTokens(refreshToken));

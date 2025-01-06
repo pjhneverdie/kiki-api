@@ -22,7 +22,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    @Value("${base-url}")
+    @Value("${server-base-url}")
     private String baseUrl;
 
     private final JwtService jwtService;

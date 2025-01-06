@@ -43,4 +43,19 @@ class MemberRepositoryTest {
         assertEquals(member, foundMember);
     }
 
+    @Test
+    public void 멤버_삭제_테스트() {
+        // Given
+        Member member = new Member(null, "subject", "name", "thumbUrl", Role.FREE);
+        memberRepository.save(member);
+
+        // When
+        memberRepository.delete(member);
+
+        // Then
+        Member foundMember = memberRepository.findBySubject(member.getSubject());
+
+        assertNull(foundMember);
+    }
+
 }

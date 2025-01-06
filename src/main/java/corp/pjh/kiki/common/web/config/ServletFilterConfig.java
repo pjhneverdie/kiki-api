@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Profile("!testcase")
-@Configuration(proxyBeanMethods = false)
+@Configuration
 public class ServletFilterConfig {
 
     @Bean

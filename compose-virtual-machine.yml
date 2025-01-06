@@ -1,8 +1,6 @@
-# 깃헙 액션 가상 머신에서 빌드/테스트 시, 내가 로컬에서 개발한 환경을 그대로 재현하기 위한 compose 파일
-
 services:
   my-mysql:
-    image: mysql
+    image: mysql:8.0
     container_name: mysql-for-kiki-virtual-machine
     environment:
       MYSQL_ROOT_PASSWORD: 123456
@@ -13,7 +11,7 @@ services:
       - 3306:3306
 
   my-redis:
-    image: redis
+    image: redis:7
     container_name: redis-for-kiki-virtual-machine
     ports:
       - 6379:6379

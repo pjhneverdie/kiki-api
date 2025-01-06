@@ -1,7 +1,9 @@
 services:
   my-server:
-    build: .
-    container_name: kiki-api-server
+    build:
+      context: .
+      dockerfile: MyServerImageFile
+    container_name: api-server-for-kiki-localhost-build
     ports:
       - 8080:8080
     depends_on:
@@ -11,24 +13,23 @@ services:
         condition: service_healthy
 
   my-mysql:
-    image: mysql
-    container_name: mysql-for-kiki-localhost
+    image: mysql:8.0
+    container_name: mysql-for-kiki-localhost-build
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: kiki_localhost
     volumes:
       - ./mysql_data:/var/lib/mysql
-      - ./init_db:/docker-entrypoint-initdb.d
     ports:
       - 3306:3306
     healthcheck:
-      test:  ["CMD", "mysqladmin", "ping"]
+      test: ["CMD", "mysqladmin", "ping"]
       interval: 5s
       retries: 10
 
   my-redis:
-    image: redis
-    container_name: redis-for-kiki-localhost
+    image: redis:7
+    container_name: redis-for-kiki-localhost-build
     ports:
       - 6379:6379
     volumes:
@@ -36,6 +37,6 @@ services:
       - ./redis-localhost.conf:/usr/local/etc/redis/redis.conf
     command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
     healthcheck:
-      test: [ "CMD", "redis-cli", "ping" ]
+      test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       retries: 10

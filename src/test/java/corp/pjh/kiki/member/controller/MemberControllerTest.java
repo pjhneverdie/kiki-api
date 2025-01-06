@@ -16,8 +16,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -44,6 +46,23 @@ class MemberControllerTest extends ControllerTestBase {
 
         // Then
         ApiResponse<MemberResponse> apiResponse = createApiResponse(memberResponse);
+
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(content().json(toJson(apiResponse)));
+    }
+
+    @Test
+    @WithTestUser
+    public void 회원_탈퇴_테스트() throws Exception {
+        // Given
+        doNothing().when(memberService).deleteMember(any(String.class));
+
+        // When
+        ResultActions resultActions = mockMvc.perform(delete("/member"));
+
+        // Then
+        ApiResponse<Void> apiResponse = createApiResponse(null);
 
         resultActions
                 .andExpect(status().isOk())

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,10 +22,19 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/me")
-    public ResponseEntity<ApiResponse<MemberResponse>> memberResponse() {
+    public ResponseEntity<ApiResponse<MemberResponse>> me() {
         MemberPrincipal principal = (MemberPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         return ResponseEntity.ok(new ApiResponse<>(memberService.getMemberResponse(principal.getSubject())));
+    }
+
+    @DeleteMapping()
+    public ResponseEntity<ApiResponse<Void>> deleteMember() {
+        MemberPrincipal principal = (MemberPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        memberService.deleteMember(principal.getSubject());
+
+        return ResponseEntity.ok(new ApiResponse<>(null));
     }
 
 }

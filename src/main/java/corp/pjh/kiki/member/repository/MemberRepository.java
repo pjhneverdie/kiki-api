@@ -30,4 +30,8 @@ public class MemberRepository {
         return result.isEmpty() ? null : result.get(0);
     }
 
+    public void delete(Member member) {
+        em.remove(member);
+    }
+
 }

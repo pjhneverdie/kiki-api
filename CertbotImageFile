@@ -1,0 +1,22 @@
+# 1. 기본 이미지로 Ubuntu를 사용
+FROM ubuntu:20.04
+
+# 2. DEBIAN_FRONTEND를 noninteractive로 설정하여 apt 명령어가 사용자 입력을 받지 않도록 함
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 3. python3, python3-venv, libaugeas0 설치
+RUN apt-get update && \
+    apt-get install -y python3 python3-venv libaugeas0 && \
+    rm -rf /var/lib/apt/lists/*
+
+# 4. 가상 환경 생성 및 pip 업그레이드
+RUN python3 -m venv /opt/certbot/ && \
+    /opt/certbot/bin/pip install --upgrade pip
+
+# 5. certbot 설치
+RUN /opt/certbot/bin/pip install certbot==2.11.0 && \
+    /opt/certbot/bin/pip install certbot-dns-duckdns==1.2.1 && \
+    ln -s /opt/certbot/bin/certbot /usr/bin/certbot
+
+# 6. 컨테이너 유지
+ENTRYPOINT ["sh", "-c", "tail -f /dev/null"]

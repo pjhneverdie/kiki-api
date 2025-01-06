@@ -1,10 +1,10 @@
 package corp.pjh.kiki.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import corp.pjh.kiki.common.dto.ApiResponse;
 import corp.pjh.kiki.jwt.exception.JwtExceptionCode;
 import corp.pjh.kiki.jwt.util.JwtUtil;
-
 import corp.pjh.kiki.member.domain.Role;
 import corp.pjh.kiki.security.oauth2.dto.MemberPrincipal;
 
@@ -12,7 +12,6 @@ import io.jsonwebtoken.JwtException;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -22,7 +21,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -41,9 +39,6 @@ public class LoginCheckFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorization = request.getHeader("Authorization");
 
-        /**
-         * LoginCheckFilter는 로그인 관련 처리만 담당
-         */
         if (authorization != null && authorization.startsWith("Bearer ")) {
             String token = authorization.substring(7);
 
@@ -63,9 +58,6 @@ public class LoginCheckFilter extends OncePerRequestFilter {
             }
         }
 
-        /**
-         * LoginCheckFilter는 로그인 관련 처리만 담당함
-         */
         filterChain.doFilter(request, response);
     }
 

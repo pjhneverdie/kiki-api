@@ -15,7 +15,7 @@ import java.io.IOException;
 @Component
 public class OAuth2FailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
-    @Value("${base-url}")
+    @Value("${server-base-url}")
     private String baseUrl;
 
     @Override
