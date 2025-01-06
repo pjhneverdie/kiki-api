@@ -101,7 +101,9 @@ jobs:
             
             sudo su -
             
+            export AWS_SHARED_CREDENTIALS_FILE=/root/.aws/credentials
             aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $REPO_URL
+            
             docker pull $REPO_URL/kiki-api-server:latest
             
             docker compose -f /main/kiki/compose/compose-prod.yml down
