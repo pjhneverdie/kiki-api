@@ -61,7 +61,7 @@ jobs:
           REPO_URL=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com
           
           # 프로젝트 빌드해서 나온 .jar 파일로 이미지 빌드
-          docker build -t $REPO_URL/kiki-api-server:latest .
+          docker build -t $REPO_URL/kiki-api-server:latest -f ./MyServerImageFile .
           
           # ECR에 푸시
           docker push $REPO_URL/kiki-api-server:latest
