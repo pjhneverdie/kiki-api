@@ -19,8 +19,7 @@ import java.time.Duration;
 @Service
 @RequiredArgsConstructor
 public class JwtService {
-    // 60 * 60 * 3L * 1000
-    private final long threeHoursInMilliSeconds = 30 * 1000;
+    private final long threeHoursInMilliSeconds = 60 * 60 * 3L * 1000;
 
     private final long thirtyDaysInMilliSeconds = 60 * 60 * 24L * 30 * 1000;
 

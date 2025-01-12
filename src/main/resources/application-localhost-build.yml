@@ -66,4 +66,4 @@ kakaopay-redirect-base-url: https://qr.kakaopay.com
 client:
   android:
     package-name: corp.pjh.kiki
-    sha-256: B4:DB:18:FC:5A:1A:47:7D:24:99:F4:8C:64:3A:35:13:B3:E4:25:26:51:40:63:AF:29:81:FE:3C:A6:F8:44:6E
+    sha256-from-my-key: B4:DB:18:FC:5A:1A:47:7D:24:99:F4:8C:64:3A:35:13:B3:E4:25:26:51:40:63:AF:29:81:FE:3C:A6:F8:44:6E
