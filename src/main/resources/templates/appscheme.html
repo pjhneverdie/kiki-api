@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>앱으로 돌아가기</title>
@@ -22,10 +22,10 @@
 <p>아직 앱으로 돌아가지 못했나요?</p>
 <button id="openAppButton">앱으로 돌아가기</button>
 
-<script>
+<script th:inline="javascript">
     var tokens = [[${tokens}]];
 
-    document.getElementById('openAppButton').addEventListener('click', function () {
+    document.getElementById("openAppButton").addEventListener("click", function () {
         var appSchemeUrl;
 
         if (tokens) {
