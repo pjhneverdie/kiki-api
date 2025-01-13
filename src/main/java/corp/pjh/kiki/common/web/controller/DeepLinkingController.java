@@ -4,45 +4,46 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import corp.pjh.kiki.common.android.config.AndroidProperties;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Optional;
 
 @Profile("!testcase")
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class DeepLinkingController {
 
-    @Value("${client.android.package-name}")
-    String androidPackageName;
-
-    @Value("${client.android.sha256-from-my-key}")
-    String androidMySha256;
-
-    @Value("${client.android.sha256-from-google-signing-key}")
-    String androidGoogleSha256;
-
     private final ObjectMapper objectMapper;
 
+    private final AndroidProperties androidProperties;
+
     @GetMapping("/app")
-    public String app() {
-        return "딥링킹 or 플레이,앱 스토어";
+    public String app(@RequestParam(value = "tokens", required = false) String tokens, Model model) {
+        model.addAttribute("tokens", tokens);
+
+        return "appscheme";
     }
 
+    @ResponseBody
     @GetMapping("/.well-known/assetlinks.json")
     public ResponseEntity<String> android() throws Exception {
         ObjectNode target = objectMapper.createObjectNode();
         target.put("namespace", "android_app");
-        target.put("package_name", androidPackageName);
+        target.put("package_name", androidProperties.getPackageName());
 
         ArrayNode fingerprints = objectMapper.createArrayNode();
-        fingerprints.add(androidMySha256);
-        Optional.ofNullable(androidGoogleSha256).ifPresent(fingerprints::add);
+        fingerprints.add(androidProperties.getSha256FromMyKey());
+        Optional.ofNullable(androidProperties.getSha256FromGoogleSigningKey()).ifPresent(fingerprints::add);
 
         target.set("sha256_cert_fingerprints", fingerprints);
 

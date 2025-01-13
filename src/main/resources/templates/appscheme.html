@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>앱으로 돌아가기</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        button {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<p>아직 앱으로 돌아가지 못했나요?</p>
+<button id="openAppButton">앱으로 돌아가기</button>
+
+<script>
+    var tokens = [[${tokens}]];
+
+    document.getElementById('openAppButton').addEventListener('click', function () {
+        var appSchemeUrl;
+
+        if (tokens) {
+            appSchemeUrl = "kiki://app?tokens=" + tokens;
+        } else {
+            appSchemeUrl = "kiki://app";
+        }
+
+        window.location.href = appSchemeUrl;
+    });
+</script>
+</body>
+</html>

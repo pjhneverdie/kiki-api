@@ -6,6 +6,7 @@ import corp.pjh.kiki.member.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+
+    private final RedisTemplate<String, String> redisTemplate;
 
     @Transactional(readOnly = true)
     public MemberResponse getMemberResponse(String subject) {
@@ -27,6 +30,8 @@ public class MemberService {
         Member foundMember = memberRepository.findBySubject(subject);
 
         memberRepository.delete(foundMember);
+
+        redisTemplate.delete(subject);
     }
 
 }

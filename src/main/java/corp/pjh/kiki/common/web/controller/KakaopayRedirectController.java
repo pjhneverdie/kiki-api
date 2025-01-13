@@ -24,19 +24,18 @@ public class KakaopayRedirectController {
     private String baseUrl;
 
     @GetMapping("/pay")
-    public void kakaopayRedirect(@RequestParam String mobileWebUrl, HttpServletResponse response) {
+    public String kakaopayRedirect(@RequestParam String mobileWebUrl, HttpServletResponse response) {
         try {
             String url = new String(Base64.getUrlDecoder().decode(mobileWebUrl));
 
             if (url.startsWith(baseUrl)) {
-                response.sendRedirect(url);
-                return;
+                return "redirect:" + url;
             }
 
-            response.sendRedirect("/expired");
+            return "expired";
         } catch (Exception e) {
             try {
-                response.sendRedirect("/expired");
+                return "expired";
             } catch (Exception e2) {
                 throw new CustomException(new ExceptionCode() {
 
